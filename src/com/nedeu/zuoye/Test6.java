@@ -1,5 +1,7 @@
 package com.nedeu.zuoye;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Test6 {
@@ -70,6 +72,25 @@ public class Test6 {
         /*
         * 报数，1，2，3，1，2，3.......报到3移除，
         * */
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("参与人数：");
+        int n = scanner.nextInt();
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1;i<=n;i++){
+            list.add(i);
+        }
+        int m = 1;
+        while (list.size()>1){
+            if (m!=3){
+                int first = list.remove(0);
+                list.add(first);
+                m++;
+            }else {
+                list.remove(0);
+                m=1;
+            }
+        }
+        System.out.println("最后剩下的是："+list.get(0));
     }
 
 }

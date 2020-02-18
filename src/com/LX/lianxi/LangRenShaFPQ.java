@@ -59,8 +59,8 @@ public class LangRenShaFPQ {
         while (di.size()<3){
             Random random = new Random();  //随机取牌
             int index = random.nextInt(list.size());  //随机取0到list.size()-1；
-            if (di.contains("狼人")&&list.get(index).equals("狼人")){
-                continue;//本次循环结束，重新开始循环
+            if (di.contains("狼人")&&list.get(index).equals("狼人")){   //list.get()只是拿出来看一下，并没有拿走
+                continue;//本次循环结束，重新开始循环                    //list.remove()拿出来取走
             }else {
                 di.add(list.remove(index));
             }
