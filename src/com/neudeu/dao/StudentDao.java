@@ -1,21 +1,21 @@
 package com.neudeu.dao;
 
 import com.neudeu.pojo.Student;
+import com.neudeu.util.JdbcUtil;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDao implements IstudentDao {
-    String url = "jdbc:mysql://localhost:3306/db?userUnicode=true&characterEncoding=utf8";
+    /*String url = "jdbc:mysql://localhost:3306/db?userUnicode=true&characterEncoding=utf8";
     String username = "root";
     String password = "123456";
     Connection connection = null;
-    PreparedStatement preparedStatement = null;
+    PreparedStatement preparedStatement = null;*/
     @Override
     public List<Student> query() {
         List<Student> list = new ArrayList<>();
-        ResultSet resultSet = null;
+        /*ResultSet resultSet = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url,username,password);
@@ -46,15 +46,18 @@ public class StudentDao implements IstudentDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-
-        return list;
+        }*/
+        /*String sql = "select Sno,Sname,Ssex,Sage,Sdept from student";
+        Class<Student> tClass = Student.class;
+         list = JdbcUtil.chaxun(sql,tClass);
+        return list;*/
+        return JdbcUtil.chaxun("select Sno,Sname,Ssex,Sage,Sdept from student",Student.class);
     }
 
     @Override
     public int add(Student student) {
         List<Student> list = new ArrayList<>();
-        int i = 0;
+        /*int i = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url,username,password);
@@ -77,14 +80,19 @@ public class StudentDao implements IstudentDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        return i;
+        }*/
+
+        /*String sql = "insert into student(Sname,Ssex,Sage,Sdept) values(?,?,?,?)";
+        Object[] obj = {student.getSname(),student.getSsex(),student.getSage(),student.getSdept()};
+        int i = JdbcUtil.zenshangai(sql,obj);
+        return i;*/
+        return JdbcUtil.zenshangai("insert into student(Sname,Ssex,Sage,Sdept) values(?,?,?,?)",student.getSname(),student.getSsex(),student.getSage(),student.getSdept());
     }
 
     @Override
     public int update(Student student) {
         List<Student> list = new ArrayList<>();
-        int i = 0;
+        /*int i = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url,username,password);
@@ -108,14 +116,19 @@ public class StudentDao implements IstudentDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        return i;
+        }*/
+
+        /*String sql = "update student set Sname=?,Ssex=?,Sage=?,Sdept=? where Sno=?";
+        Object[] obj = {student.getSname(),student.getSsex(),student.getSage(),student.getSdept(),student.getSno()};
+        int i = JdbcUtil.zenshangai(sql,obj);
+        return i;*/
+        return JdbcUtil.zenshangai("update student set Sname=?,Ssex=?,Sage=?,Sdept=? where Sno=?",student.getSname(),student.getSsex(),student.getSage(),student.getSdept(),student.getSno());
     }
 
     @Override
     public int del(int Sno) {
         List<Student> list = new ArrayList<>();
-        int i = 0;
+        /*int i = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url,username,password);
@@ -135,8 +148,13 @@ public class StudentDao implements IstudentDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        return i;
+        }*/
+
+        /*String sql = "delete from student where Sno=?";
+        Object[] obj = {Sno};
+        int i = JdbcUtil.zenshangai(sql,obj);
+        return i;*/
+        return JdbcUtil.zenshangai("delete from student where Sno=?",Sno);
     }
 
     @Override

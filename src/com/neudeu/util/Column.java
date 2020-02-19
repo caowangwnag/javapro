@@ -1,22 +1,15 @@
-package com.neudeu.test;
-
-import com.neudeu.pojo.Course;
-import com.neudeu.pojo.Student;
-import com.neudeu.util.JdbcUtil;
-import com.neudeu.web.StudentWeb;
-
-import java.util.List;
-
-public class Test {
-    public static void main(String[] args) {
-        StudentWeb studentWeb = new StudentWeb();
-        studentWeb.showmain();
-        studentWeb.input();
-        /*List<Course> list = JdbcUtil.chaxun("select Cno,Cname,Period,Ccredit from course",Course.class);
-        System.out.println(list);*/
-    }
+package com.neudeu.util;
 
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Column {
+    String value();
 }
 /*
  *  注解 ：
