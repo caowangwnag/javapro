@@ -2,7 +2,10 @@ package com.neudeu.dao;
 
 import com.neudeu.pojo.Student;
 import com.neudeu.util.JdbcUtil;
+import com.neudeu.util.RowMap;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +54,24 @@ public class StudentDao implements IstudentDao {
         Class<Student> tClass = Student.class;
          list = JdbcUtil.chaxun(sql,tClass);
         return list;*/
-        return JdbcUtil.chaxun("select Sno,Sname,Ssex,Sage,Sdept from student",Student.class);
+        /*return JdbcUtil.chaxun("select Sno,Sname,Ssex,Sage,Sdept from student",Student.class);*/
+        list = JdbcUtil.chaxun("select Sno,Sname,Ssex,Sage,Sdept from student", new RowMap<Student>() {
+            @Override
+            public Student rowMapping(ResultSet resultSet) {
+                Student student = new Student();
+                try {
+                    student.setSno(resultSet.getInt("Sno"));
+                    student.setSname(resultSet.getString("Sname"));
+                    student.setSsex(resultSet.getString("Ssex"));
+                    student.setSage(resultSet.getInt("Sage"));
+                    student.setSdept(resultSet.getString("Sdept"));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return student;
+            }
+        });
+        return list;
     }
 
     @Override

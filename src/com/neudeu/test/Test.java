@@ -3,8 +3,11 @@ package com.neudeu.test;
 import com.neudeu.pojo.Course;
 import com.neudeu.pojo.Student;
 import com.neudeu.util.JdbcUtil;
+import com.neudeu.util.RowMap;
 import com.neudeu.web.StudentWeb;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Test {
@@ -14,9 +17,29 @@ public class Test {
         studentWeb.input();
         /*List<Course> list = JdbcUtil.chaxun("select Cno,Cname,Period,Ccredit from course",Course.class);
         System.out.println(list);*/
+
+        /*List<Student> list = JdbcUtil.chaxun("select Sno,Sname,Ssex,Sage,Sdept from student", new RowMap<Student>() {
+            @Override
+            public Student rowMapping(ResultSet resultSet) {
+                Student student = new Student();
+                try {
+                    student.setSno(resultSet.getInt("Sno"));
+                    student.setSname(resultSet.getString("Sname"));
+                    student.setSsex(resultSet.getString("Ssex"));
+                    student.setSage(resultSet.getInt("Sage"));
+                    student.setSdept(resultSet.getString("Sdept"));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return student;
+            }
+        });
+
+        System.out.println(list);
+    }*/
+
+
     }
-
-
 }
 /*
  *  注解 ：

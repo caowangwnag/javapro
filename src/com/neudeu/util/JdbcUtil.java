@@ -3,6 +3,7 @@ package com.neudeu.util;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class JdbcUtil {
@@ -45,7 +46,7 @@ public class JdbcUtil {
         }
         return result;
     }
-    //封装通用查询方法
+    //封装通用查询方法1
     public static <T> List<T> chaxun(String sql,Class<T> tClass,Object... obj){
         List<T> list = new ArrayList<>();
         Connection connection = getConnection();
@@ -91,6 +92,31 @@ public class JdbcUtil {
         } catch (InstantiationException e) {
             e.printStackTrace();
         } finally {
+            close(preparedStatement,connection,resultSet);
+        }
+        return list;
+    }
+    //封装通用查询方法2
+    public  static  <T> List<T> chaxun(String sql,RowMap<T> rowMap,Object... obj){
+        List<T> list = new ArrayList<>();
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            if (obj!=null){
+                for (int i=0;i<obj.length;i++){
+                    preparedStatement.setObject(i+1,obj[i]);
+                }
+            }
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                T t = rowMap.rowMapping(resultSet);
+                list.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
             close(preparedStatement,connection,resultSet);
         }
         return list;
